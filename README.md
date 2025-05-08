@@ -123,7 +123,9 @@ In the ue terminal start the iperf server by running the following command:
 In another terminal start iperf to generate downlink throughput by running this command with the ipv4 address generated in the core
 # sudo iperf3 -c 10.45.0.2 -i 1 -t 5000 -u -b 10M
 
-#### To visualize the downlink throughput we can enable the grafana dashboard from srsran project directory  [https://docs.srsran.com/projects/project/en/latest/user_manuals/source/grafana_gui.html]
+#### Grafana Metrics GUI
+
+To visualize the downlink throughput we can enable the grafana dashboard from srsran project directory  [https://docs.srsran.com/projects/project/en/latest/user_manuals/source/grafana_gui.html]
 ```
 
 
