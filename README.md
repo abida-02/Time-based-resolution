@@ -103,7 +103,7 @@ sudo ./gnb -c ~/oran-sc-ric/e2-agents/srsRAN/gnb_zmq.yaml
 The gNB should connect to both the core network and the RIC.  
 **Note:** The RIC uses 60s time-to-wait. Therefore, after disconnecting from RIC, an E2 agent (inside gNB) has to wait 60s before trying to connect again. Otherwise, the RIC sends an `E2 SETUP FAILURE` message and gNB is not connected to the RIC.
 
-2.3. https://docs.srsran.com/projects/project/en/latest/tutorials/source/cotsUE/source/index.html
+2.3. COTS UE   https://docs.srsran.com/projects/project/en/latest/tutorials/source/cotsUE/source/index.html
 Start   COTS UE:
 To connect the COTS UE to the network the following steps must be taken once the phone and network have been correctly configured:
 
@@ -115,7 +115,15 @@ Select and connect to the network
 
 Verify the attach
 
-Stream data
+[once the started the core will detect the plmn address and register it and an ip address will be assigned]
+
+In the ue terminal start the iperf server by running the following command:
+# iperf3 -s
+
+In another terminal start iperf to generate downlink throughput by running this command with the ipv4 address generated in the core
+# sudo iperf3 -c 10.45.0.2 -i 1 -t 5000 -u -b 10M
+
+
 ```
 
 #### 3. Example xApp
