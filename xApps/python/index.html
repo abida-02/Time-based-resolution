@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xApp Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>xApp Dashboard</h1>
+    <h2>Connected xApps</h2>
+    <table id="xapp-table">
+        <thead>
+            <tr>
+                <th>xApp ID</th>
+                <th>PID</th>
+                <th>Last Active</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h2>Conflicts</h2>
+    <table id="conflict-table">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Conflict Message</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        function updateXAppTable() {
+            fetch('/get_xapps')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('xapp-table').getElementsByTagName('tbody')[0];
+                    tableBody.innerHTML = '';
+                    data.forEach(xapp => {
+                        const row = tableBody.insertRow();
+                        row.insertCell(0).innerText = xapp.xapp_id;
+                        row.insertCell(1).innerText = xapp.pid;
+                        row.insertCell(2).innerText = new Date(xapp.last_active).toLocaleString();
+                    });
+                });
+        }
+
+        function updateConflictTable() {
+            fetch('/get_conflicts')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('conflict-table').getElementsByTagName('tbody')[0];
+                    tableBody.innerHTML = '';
+                    data.forEach(conflict => {
+                        const row = tableBody.insertRow();
+                        row.insertCell(0).innerText = new Date(conflict.timestamp).toLocaleString();
+                        row.insertCell(1).innerText = conflict.message;
+                    });
+                });
+        }
+
+        function refreshData() {
+            updateXAppTable();
+            updateConflictTable();
+        }
+
+        setInterval(refreshData, 3000); // Refresh every 3 seconds
+        refreshData(); // Initial call
+    </script>
+</body>
+</html>
+
