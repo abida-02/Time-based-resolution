@@ -103,16 +103,19 @@ sudo ./gnb -c ~/oran-sc-ric/e2-agents/srsRAN/gnb_zmq.yaml
 The gNB should connect to both the core network and the RIC.  
 **Note:** The RIC uses 60s time-to-wait. Therefore, after disconnecting from RIC, an E2 agent (inside gNB) has to wait 60s before trying to connect again. Otherwise, the RIC sends an `E2 SETUP FAILURE` message and gNB is not connected to the RIC.
 
-2.3. Start srsUE:
-```bash
-sudo ip netns add ue1
-cd  ./srsRAN_4G/build/srsue/src/
-sudo ./srsue ~/oran-sc-ric/e2-agents/srsRAN/ue_zmq.conf
-```
-The srsUE should connect to the 5G NR network and get an IP address (by default 10.45.1.2).
-Then, you can ping the core network from the UE with the following command:
-```bash
-sudo ip netns exec ue1 ping -i 0.1 10.45.1.1
+2.3. https://docs.srsran.com/projects/project/en/latest/tutorials/source/cotsUE/source/index.html
+Start   COTS UE:
+To connect the COTS UE to the network the following steps must be taken once the phone and network have been correctly configured:
+
+Run the gNB and ensure it is correctly connected to the core
+
+Search for the network from the UE
+
+Select and connect to the network
+
+Verify the attach
+
+Stream data
 ```
 
 #### 3. Example xApp
