@@ -158,7 +158,7 @@ Enabling gNB console trace (with `t`) allows the monitoring of changes in the do
 In another Terminal run the following command to see if the central controller detcting the conflcit uplon starting the 2nd xapp
         
 ```bash
- sudo python3 ./central_controller_cd_latest.py```
+ sudo python3 ./central_controller_cd_latest.py
 ```
 The terminal will print this after detecting conflict
 ```bash
@@ -175,7 +175,7 @@ Conflict detected. Both  xApp1 and  xApp2 sent conflicting messages.
 Initializing Conflict Mitigation Module
 Buffering message from  xApp2 for later execution.
 Executing buffered message from xApp xApp2 after delay.
-Initializing Conflict Mitigation Module```
+Initializing Conflict Mitigation Module
 
 ```
 #### 7. Conflict Mitigation
