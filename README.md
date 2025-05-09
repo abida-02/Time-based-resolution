@@ -126,7 +126,6 @@ In another terminal start iperf to generate downlink throughput by running this 
 #### Grafana Metrics GUI
 
 To visualize the downlink throughput we can enable the grafana dashboard from srsran project directory  [https://docs.srsran.com/projects/project/en/latest/user_manuals/source/grafana_gui.html]
-```
 
 
 4. Example xApp
