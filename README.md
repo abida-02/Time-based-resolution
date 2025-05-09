@@ -129,7 +129,7 @@ To visualize the downlink throughput we can enable the grafana dashboard from sr
 ```
 
 
-#### 4. Example xApp
+# 4. Example xApp
 
 To start the xapp1, which will alocate prb to  minimum ratio, run the following command
 ```bash
