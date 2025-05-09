@@ -134,18 +134,15 @@ To start the xapp1, which will alocate prb to  minimum ratio, run the following 
 ```bash
  sudo docker compose exec python_xapp_runner ./simple_xapp_12.py --http_server_port 8091 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp2```
 
+5.
 To Start xapp2, which will allocate prb to maximum ratio, run the following command 
 ``````bash
  sudo docker compose exec python_xapp_runner ./simple_xapp_13.py --http_server_port 8090 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp1
 
 
-**Issue:** sometimes the xApp needs to be restarted to correctly receive and display the content of the `RIC_INDICATION` messages. Interestingly, in most cases, the E2 subscription procedure is executed correctly, and `RIC_INDICATION` messages are received in the xApp container (it can be checked with Wireshark). This issue will be investigated and fixed.
 
 
-```
 
-
-```
 
 Enabling gNB console trace (with `t`) allows the monitoring of changes in the downlink (DL) user equipment (UE) data rate.
 
