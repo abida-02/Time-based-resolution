@@ -131,50 +131,21 @@ To visualize the downlink throughput we can enable the grafana dashboard from sr
 
 #### 4. Example xApp
 
-To start the provided example [xApp](xApps/python/simple_mon_xapp.py), please run the following command from the `oran-sc-ric` directory:
+To start the xapp1, which will alocate prb to  minimum ratio, run the following command
 ```bash
-docker compose exec python_xapp_runner ./simple_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl
-```
+ sudo docker compose exec python_xapp_runner ./simple_xapp_12.py --http_server_port 8091 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp2```
 
-The xApp should subscribe to `DRB.UEThpUl` and `DRB.UEThpUl` measurements, and display the content of received `RIC_INDICATION` messages. The console output should be similar to:
+To Start xapp2, which will allocate prb to maximum ratio, run the following command 
+``````bash
+ sudo docker compose exec python_xapp_runner ./simple_xapp_13.py --http_server_port 8090 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp1
 
-```console
-RIC Indication Received from gnb_001_001_0000019b for Subscription ID: 65
-E2SM_KPM RIC Indication Content:
--ColletStartTime:  2024-01-26 00:08:05
--Measurements Data:
---Metric: DRB.UEThpDl, Value: 4
---Metric: DRB.UEThpUl, Value: 11367
-```
 
 **Issue:** sometimes the xApp needs to be restarted to correctly receive and display the content of the `RIC_INDICATION` messages. Interestingly, in most cases, the E2 subscription procedure is executed correctly, and `RIC_INDICATION` messages are received in the xApp container (it can be checked with Wireshark). This issue will be investigated and fixed.
 
-**Note 1:**  The `xApps/python` directory is mounted into the `python_xapp_runner` container, therefore one can modify `simple_mon_xapp.py` (or any other file in this directory) locally and re-run it inside the `python_xapp_runner` container.
 
-**Note 2:** Alternatively, one can first go into the container (from `oran-sc-ric` directory) and then run the xApp:
-```bash
-docker compose exec python_xapp_runner /bin/bash
-root@python_xapp_runner:/opt/xApps# ./simple_mon_xapp.py --metrics=DRB.UEThpDl,DRB.UEThpUl
 ```
 
-**Note 3:** To start the advanced [kpm_mon_xapp](xApps/python/kpm_mon_xapp.py) xApp, which allows subscribing with all E2SM-KPM Report Styles (i.e., 1-5), please run the following command from the `oran-sc-ric` directory:
-```bash
-docker compose exec python_xapp_runner ./kpm_mon_xapp.py --kpm_report_style=5
-```
 
-**Note 4:** To start an example **E2SM_RC** [simple_rc_xapp](xApps/python/simple_rc_xapp.py) xApp, which sends a RIC Control Request for the Slice Level PRB Quota change (Control Style 2, Action ID 6), please run the following command from the `oran-sc-ric` directory (use CTRL+C to exit):
-```bash
-docker compose exec python_xapp_runner ./simple_rc_xapp.py
-```
-
-The example RC xApp periodically (every 5s) adjusts the number of DL PRBs available for allocation to a UE. Its console output should be similar to:
-
-```console
-11:34:29 Send RIC Control Request to E2 node ID: gnb_001_001_00019b for UE ID: 0, PRB_min: 1, PRB_max: 5
-11:34:34 Send RIC Control Request to E2 node ID: gnb_001_001_00019b for UE ID: 0, PRB_min: 1, PRB_max: 275
-11:34:39 Send RIC Control Request to E2 node ID: gnb_001_001_00019b for UE ID: 0, PRB_min: 1, PRB_max: 5
-11:34:44 Send RIC Control Request to E2 node ID: gnb_001_001_00019b for UE ID: 0, PRB_min: 1, PRB_max: 275
-...
 ```
 
 Enabling gNB console trace (with `t`) allows the monitoring of changes in the downlink (DL) user equipment (UE) data rate.
