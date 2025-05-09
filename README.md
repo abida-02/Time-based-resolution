@@ -1,3 +1,10 @@
+# Time-based Conflict Resolution Mechanism
+For conflict mitigation, we used  time based conflcit mitigatio. mechanism. We implemented a time-based conflict resolution mechanism using a first-come, first-serve principle. RC messages are timestamped upon receipt and processed
+Chronologically. In the CCA, new messages are compared with existing ones based on timestamps. This approach ensures organized handling of control decisions, with priority given to the earliest messages in the execution queue. The proposed
+technique aims to prioritize control messages based on their arrival time. This approach may not be always suitable due to the differing operational timescales of various xApps. To tackle this one of the options is to implement a priority
+system that considers the criticality and urgency of xApps and their control messages, ensuring more prompt handling of time-sensitive messages.
+
+
 # ORAN SC RIC in Docker
 
 This repository provides a minimal version of the **O-RAN Software Community (SC) Near-Real-time RIC** (`i-release`). It includes configuration files that enable the building and deploying of the SC RIC as a multi-container application using a single Docker command, without Kubernetes or Helm. Additionally, the repository features example monitoring and control xApps, which use the  ``E2SM_KPM`` and  ``E2SM_RC`` service modules, respectively.
@@ -171,6 +178,14 @@ Executing buffered message from xApp xApp2 after delay.
 Initializing Conflict Mitigation Module```
 
 ```
+#### 7. Conflict Mitigation
+After detecting the conflict we need to initialize the mitigation by clicking the following command
+
+```bash
+cd oran-sc-ric/
+ sudo docker compose exec python_xapp_runner ./resolution.py
+```
+This mitigation technique uses a first come first serve basis. The controller will log the timestamp of the arrival of each xapp message. It will execute the first xapps message and hold the 2nd xapp for a certain period of time. In this demo, we used 10 second time window which can be tunable according to the user demand. After 10 seconds the controller will execute the 2nd xapps message and hold the first one. With this method, the controller will execute both xapps decision without degrading the network performance
 ## xApp Development
 
 The `xApps/python` directory is mounted into the `python_xapp_runner` container, therefore one can develop the xApp on a local machine, put it in this directory, and execute it inside the docker without restarting the SC RIC platform.
