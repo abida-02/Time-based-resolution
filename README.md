@@ -158,7 +158,7 @@ Enabling gNB console trace (with `t`) allows the monitoring of changes in the do
 In another Terminal run the following command to see if the central controller detcting the conflcit uplon starting the 2nd xapp
         
 ```bash
- sudo python3 ./central_controller_cd_latest.py
+ sudo python3 ./central_controller_cd.py
 ```
 The terminal will print this after detecting conflict
 ```bash
