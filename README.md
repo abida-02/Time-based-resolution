@@ -128,13 +128,13 @@ In another terminal start iperf to generate downlink throughput by running this 
 To visualize the downlink throughput we can enable the grafana dashboard from srsran project directory  [https://docs.srsran.com/projects/project/en/latest/user_manuals/source/grafana_gui.html]
 
 
-4. Example xApp
+#### 4. Example xApp
 
 To start the xapp1, which will alocate prb to  minimum ratio, run the following command
 ```bash
  sudo docker compose exec python_xapp_runner ./simple_xapp_12.py --http_server_port 8091 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp2```
-
-## 5. Start Another xapp
+```
+#### 5. Start Another xapp
 To Start xapp2, which will allocate prb to maximum ratio, run the following command 
 ```bash
  sudo docker compose exec python_xapp_runner ./simple_xapp_13.py --http_server_port 8090 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp1```
