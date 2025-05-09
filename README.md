@@ -130,23 +130,47 @@ To visualize the downlink throughput we can enable the grafana dashboard from sr
 
 #### 4. Example xApp
 
-To start the xapp1, which will alocate prb to  minimum ratio, run the following command
+The xApp in this demo is designed to send rc message to the e2 node. Two custom xapp are being used in this experiment. Xapp-1 sends rc message to allocate higher resources (prb) to the base station and xapp-2 sends rc message to allocate minimum resources to the base station. When both xapp is running concurrently it results in an unstable network at the base station resulting in a direct conflict
+
+To start the xapp1, which will alocate prb to  maximum ratio, run the following command
 ```bash
  sudo docker compose exec python_xapp_runner ./simple_xapp_12.py --http_server_port 8091 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp2```
 ```
 #### 5. Start Another xapp
-To Start xapp2, which will allocate prb to maximum ratio, run the following command 
+To Start xapp2, which will allocate prb to minimum ratio, run the following command .
+If we start the xapp 2 , its decision will override on the xapp-1 s decision which will reflect a fluctuation in downlink bitrate.
+
+
 ```bash
  sudo docker compose exec python_xapp_runner ./simple_xapp_13.py --http_server_port 8090 --rmr_port 4560 --e2_node_id gnbd_001_001_00019b_0 --ran_func_id 3 --ue_id 0 --xapp_id xApp1```
 
-
-
-
-
-
+```
 Enabling gNB console trace (with `t`) allows the monitoring of changes in the downlink (DL) user equipment (UE) data rate.
 
+#### 6. Conflict Detection
+In another Terminal run the following command to see if the central controller detcting the conflcit uplon starting the 2nd xapp
+        
+```bash
+ sudo python3 ./central_controller_cd_latest.py```
+```
+The terminal will print this after detecting conflict
+```bash
+Checking for conflicts upon onboarding xApp xApp1
+Logging message from xApp xApp1 at 2025-05-09 11:38:25.396068
+Checking for conflicts among 1 recent messages
+  
+Checking for conflicts upon onboarding xApp xApp2
+Logging message from xApp xApp2 at 2025-05-09 11:38:25.434621
+Checking for conflicts among 2 recent messages
+Conflict detected between messages from  xApp1 and  xApp2
+  
+Conflict detected. Both  xApp1 and  xApp2 sent conflicting messages.
+Initializing Conflict Mitigation Module
+Buffering message from  xApp2 for later execution.
+Executing buffered message from xApp xApp2 after delay.
+Initializing Conflict Mitigation Module```
 
+```
 ## xApp Development
 
 The `xApps/python` directory is mounted into the `python_xapp_runner` container, therefore one can develop the xApp on a local machine, put it in this directory, and execute it inside the docker without restarting the SC RIC platform.
