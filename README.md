@@ -3,6 +3,7 @@ For conflict mitigation, we used  time based conflcit mitigatio. mechanism. We i
 Chronologically. In the CCA, new messages are compared with existing ones based on timestamps. This approach ensures organized handling of control decisions, with priority given to the earliest messages in the execution queue. The proposed
 technique aims to prioritize control messages based on their arrival time. This approach may not be always suitable due to the differing operational timescales of various xApps. To tackle this one of the options is to implement a priority
 system that considers the criticality and urgency of xApps and their control messages, ensuring more prompt handling of time-sensitive messages.
+
 [Paper Link] (https://ieeexplore.ieee.org/abstract/document/10773739)
 
 # ORAN SC RIC in Docker
